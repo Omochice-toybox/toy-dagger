@@ -7,3 +7,10 @@ Deno.test({
     assertEquals(fizzBuzz(15), "FIZZBUZZ");
   },
 });
+
+Deno.test({
+  name: "3: fizz",
+  fn: () => {
+    assertEquals(fizzBuzz(15), "FIZZ");
+  },
+});
