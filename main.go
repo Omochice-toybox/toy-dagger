@@ -25,12 +25,19 @@ func build(ctx context.Context) error {
 
 	src := client.Host().Directory(".")
 
-	deno := client.Container().From("denoland/deno:latest")
+	contents, err := client.
+		Container().
+		From("denoland/deno:latest").
+		WithMountedDirectory("/src", src).
+		WithWorkdir("/src").
+		WithExec([]string{"deno", "test"}).
+		Stdout(ctx)
 
-	deno = deno.WithMountedDirectory("/src", src).WithWorkdir("/src")
+	if err != nil {
+		return err
+	}
 
-	deno = deno.WithExec([]string{"deno", "test"})
-	deno = deno.WithExec([]string{"echo", "hi"})
+	fmt.Println(contents)
 
 	return nil
 }
