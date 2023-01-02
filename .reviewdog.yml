@@ -1,0 +1,6 @@
+runner:
+  denolint:
+    cmd: deno lint --compact ./ 2>&1 | xargs
+    errorformat:
+      - "%f: line %l, col %c - %m"
+    level: warning
